@@ -1,0 +1,144 @@
+Reglas del Requerimiento
+
+•	Elegir una troncal A, B, C, D, E, F, G, H, J, K, L
+•	Elegir Min 5 estaciones de la troncal
+•	Elegir Min 3 rutas por estación 
+
+REQUSITOS 75%
+
+Requerimientos Funcionales
+
+•	Listar todas las estaciones de la Troncal
+•	Listar las rutas por Estación 
+•	Listar las rutas por troncal y estación
+•	Listar las estaciones por rutas.
+
+Consideraciones
+
+•	Crear servicio para hacer CRUD de las rutas (tener en cuenta la troncal)
+•	Crear servicio para hacer CRUD de las estaciones (tener en cuenta la troncal)
+•	Crear servicio para hacer CRUD sobre paradas de estaciones (tener en cuenta la troncal)
+•	Cada servicio debe tener por lo menos 2 réplicas (Tener en cuenta los puertos)
+•	Cada servicio deberá entregar la información sobre la IP y puerto de quien responde.
+•	Cada servicio deberá tener la definición de swagger documentada
+•	Cada servicio deberá tener pruebas unitarias en JUNIT
+o	Casos Exitoso
+o	Casos de Negocio
+o	Casos de Error Técnico
+
+Reglas de Negocio
+
+•	Si no hay rutas deberá mostrar un mensaje amigable con esa información
+•	Si la estación no existe deberá mostrar un mensaje amigable con esa información
+
+
+REQUSITOS 25%
+
+•	Crear un Gateway utilizando Zuul y Eureka que tenga como objetivo redireccionar las peticiones según la troncal.
+
+
+
+
+
+
+Opcionales + 25% (Mínimo 2 puntos)
+ 
+•	Restringir los servicios por horario (deberá ser configurable)
+o	Si no aplica la hora deberá mostrarse un mensaje con esta información
+•	Adicionar un estado a la estación: operativo, bloqueada, cerrada.
+o	Si el estado de la estación es bloqueado no deberá mostrar resultado en el servicio de consulta por estación
+•	La información debe estar almacenada de manera persistente.
+o	H2
+o	MongoDB
+•	Utilizar métodos de tipo Cachable para evitar consultas a bases de datos
+•	Entregar los servicios como Imágenes de Docker Descargable en DockerHub
+•	Definir un esquema de logs en archivo utilizando logback o log4j capturando la mensajería generada.
+
+
+
+Ejemplo Servicio de Consulta Estación:
+
+--Rq--
+Troncal: A
+--Rs--
+Troncal : A
+Estacion : AAAA
+Rutas:
+A15
+Horario : 8am - 5 pm 
+A16
+Horario : 8am - 5 pm
+A17
+Horario : 8am - 5 pm
+A151
+Horario : 8am - 5 pm 
+A162
+Horario : 8am - 5 pm
+A173
+Horario : 8am - 5 pm
+ServerInfo
+IP : XX.XX.XX.XX
+Puerto : YYYY
+
+Ejemplo Servicio de Consulta Troncal :
+
+--Rq--
+Troncal : A
+--Rs--
+Troncal : A
+Estaciones:
+Estacion AAAA
+Horario : 8am - 5 pm 
+Estacion BBBB
+Horario : 8am - 5 pm
+Estacion CCCC
+Horario : 8am - 5 pm
+Estacion DDDD
+Horario : 8am - 5 pm 
+Estacion EEEEE
+Horario : 8am - 5 pm
+A173
+Horario : 8am - 5 pm
+ServerInfo
+IP : XX.XX.XX.XX
+Puerto : YYYY
+
+
+Ejemplo Servicio de Consulta Estacion y troncal:
+
+--Rq--
+Troncal : A
+Estacion : Jimenez
+--Rs--
+Troncal : A
+Estacion : Jimenez
+Rutas:
+A15
+Horario : 8am - 5 pm 
+A16
+Horario : 8am - 5 pm
+A17
+Horario : 8am - 5 pm
+ServerInfo
+IP : XX.XX.XX.XX
+Puerto : YYYY
+
+
+Ejemplo Servicio de Consulta rutas:
+
+--Rq--
+Troncal : A
+Rutas : A16
+--Rs--
+Troncal : A
+Rutas : A16
+Estacion:
+AAAA
+Estado : operativo 
+CCCC
+Estado : operativo
+DDDD
+Estado : Bloqueada
+ServerInfo
+IP : XX.XX.XX.XX
+Puerto : YYYY
